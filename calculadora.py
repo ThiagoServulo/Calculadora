@@ -4,10 +4,31 @@ num = ''
 resultado = ''
 ultima_operacao = ''
 conta_realizada = ''
+fim_calculo = False
+
+
+def apaga_numero():
+    global num
+    num = ''
+    calculadora.DisplayLCD.display(0)
+
+
+def limpar_dados():
+    global num, resultado, ultima_operacao, conta_realizada, fim_calculo
+    num = ''
+    resultado = ''
+    ultima_operacao = ''
+    conta_realizada = ''
+    fim_calculo = False
+    calculadora.Memoria.clear()
+    calculadora.Memoria.addItem(conta_realizada)
+    calculadora.DisplayLCD.display(0)
 
 
 def adiciona_digito(digito):
-    global num
+    global num, fim_calculo
+    if fim_calculo == True:
+        limpar_dados()
     num += digito
     calculadora.DisplayLCD.display(float(num))
     print(f'num: {num}')
@@ -74,7 +95,6 @@ def operacao(tipo):
         ultima_operacao += 'divide'
         conta_realizada += num + ' / '
 
-    print(f"aqui{conta_realizada}")
     calculadora.Memoria.clear()
     calculadora.Memoria.addItem(conta_realizada)
 
@@ -115,7 +135,8 @@ def multiplica():
 
 
 def calcula():
-    global ultima_operacao, conta_realizada
+    global ultima_operacao, conta_realizada, fim_calculo
+    fim_calculo = True
     operacao(ultima_operacao)
     calculadora.Memoria.clear()
     conta_realizada = conta_realizada[:-2] + conta_realizada[(-2 + 1):]
@@ -155,6 +176,8 @@ calculadora.Subtrair.clicked.connect(subtrai)
 calculadora.Dividir.clicked.connect(divide)
 calculadora.Multiplicar.clicked.connect(multiplica)
 calculadora.Calcular.clicked.connect(calcula)
-calculadora.Apagar_Numero.clicked.connect(apaga_digito)
+calculadora.Apaga_Digito.clicked.connect(apaga_digito)
+calculadora.Apagar_Tudo.clicked.connect(limpar_dados)
+calculadora.Apagar_Numero.clicked.connect(apaga_numero)
 calculadora.show()
 app.exec()
