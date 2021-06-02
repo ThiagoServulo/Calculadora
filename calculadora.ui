@@ -16,6 +16,43 @@
     <height>800</height>
    </size>
   </property>
+  <property name="palette">
+   <palette>
+    <active>
+     <colorrole role="Button">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>85</green>
+        <blue>127</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </active>
+    <inactive>
+     <colorrole role="Button">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>85</green>
+        <blue>127</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </inactive>
+    <disabled>
+     <colorrole role="Button">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>85</green>
+        <blue>127</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </disabled>
+   </palette>
+  </property>
   <property name="font">
    <font>
     <pointsize>12</pointsize>
@@ -217,6 +254,9 @@
     <property name="text">
      <string>0</string>
     </property>
+    <property name="default">
+     <bool>false</bool>
+    </property>
    </widget>
    <widget class="QPushButton" name="Multiplicar">
     <property name="geometry">
@@ -280,7 +320,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="Numero_Pi">
+   <widget class="QPushButton" name="Fracao">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -290,7 +330,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>π</string>
+     <string>1/x</string>
     </property>
    </widget>
    <widget class="QPushButton" name="Apagar_Tudo">
@@ -330,6 +370,9 @@
     </property>
     <property name="text">
      <string>&lt;-</string>
+    </property>
+    <property name="autoDefault">
+     <bool>false</bool>
     </property>
    </widget>
   </widget>
