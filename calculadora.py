@@ -1,4 +1,5 @@
 from PyQt5 import uic, QtWidgets
+
 # Variáveis Globais
 num = ''
 resultado = ''
@@ -17,14 +18,18 @@ def apaga_numero():
     calculadora.DisplayLCD.display(0)
 
 
-def limpar_dados():
+def limpar_dados(flag_zera_resultado):
     """
     Apaga todas as variáveis do sistema, além de limpar o bloco de memória e mostrar no display o valor zero
+    :param flag_zera_resultado: Se verdadeira a variável 'resultado' será zerada
+                                Se falso o valor da variável 'resultado' será mantido
     :return: Nenhum
     """
     global num, resultado, ultima_operacao, conta_realizada, fim_calculo
+    print(f'Limpando dados: {flag_zera_resultado}')
     num = ''
-    resultado = ''
+    if flag_zera_resultado:
+        resultado = ''
     ultima_operacao = ''
     conta_realizada = ''
     fim_calculo = False
@@ -41,9 +46,8 @@ def adiciona_digito(digito):
     :return: Nenhum
     """
     global num, fim_calculo
-    if fim_calculo == True:
-        # Se a última conta já estiver sido encerrada, todos os dados da calculadora serão resetados
-        limpar_dados()
+    if fim_calculo:
+        limpar_dados(True)
     num += digito
     calculadora.DisplayLCD.display(float(num))
     print(f'num: {num}')
@@ -134,6 +138,9 @@ def adiciona_virgula():
     Adiciona a vírgula a variável 'num'
     :return: Nenhum
     """
+    global num
+    if num == '':
+        num = '0'
     adiciona_digito('.')
 
 
@@ -143,7 +150,32 @@ def operacao(tipo):
     :param tipo: Tipo de operação que será realizada
     :return: Nenhum
     """
-    global num, ultima_operacao, resultado, conta_realizada
+    global num, ultima_operacao, resultado, conta_realizada, fim_calculo
+
+    if num == '' and resultado == '':
+        return
+
+    if fim_calculo:
+        limpar_dados(False)
+        num = str(resultado)
+        resultado = ''
+
+    if resultado == '' or resultado == 'ERRO':
+        resultado = float(num)
+    else:
+        if ultima_operacao == 'soma':
+            resultado += float(num)
+        elif ultima_operacao == 'subtrai':
+            resultado -= float(num)
+        elif ultima_operacao == 'multiplica':
+            resultado *= float(num)
+        elif ultima_operacao == 'divide':
+            try:
+                resultado = resultado / float(num)
+            except ZeroDivisionError:
+                resultado = 'ERRO'
+                num = ''
+                print('Divisão por zero')
 
     ultima_operacao = ''
     if tipo == 'soma':
@@ -162,24 +194,8 @@ def operacao(tipo):
     calculadora.Memoria.clear()
     calculadora.Memoria.addItem(conta_realizada)
 
-    if resultado == '':
-        resultado = float(num)
-    else:
-        if tipo == 'soma':
-            resultado += float(num)
-        elif tipo == 'subtrai':
-            resultado -= float(num)
-        elif tipo == 'multiplica':
-            resultado *= float(num)
-        elif tipo == 'divide':
-            try:
-                resultado /= float(num)
-            except ZeroDivisionError:
-                # todo: Tratar a divisão por zero
-                calculadora.DisplayLCD.display(0000)
-                print('Divisão por zero')
     num = ''
-    print(f'Resultado parcial: {resultado}')
+    print(f'Resultado parcial: {resultado} {ultima_operacao}')
 
 
 def soma():
@@ -220,8 +236,12 @@ def calcula():
     :return: Nenhum
     """
     global ultima_operacao, conta_realizada, fim_calculo
-    fim_calculo = True
+
+    if num == '':
+        return
+
     operacao(ultima_operacao)
+    fim_calculo = True
     calculadora.Memoria.clear()
     conta_realizada = conta_realizada[:-2] + conta_realizada[(-2 + 1):]
     conta_realizada += f'= {resultado}'
@@ -252,11 +272,18 @@ def apaga_digito():
 
 def inverte_numero():
     """
-    Inverte o número (1/num)
+    Inverte o número (num = 1/num)
     :return: Nenhum
     """
-    global num
-    print(f'a{num}')
+    global num, fim_calculo, resultado, conta_realizada
+
+    if fim_calculo:
+        limpar_dados(False)
+        num = str(resultado)
+        conta_realizada = num
+        calculadora.Memoria.clear()
+        calculadora.Memoria.addItem(conta_realizada)
+
     try:
         aux = 1 / float(num)
         num = str(aux)
