@@ -180,19 +180,20 @@ def operacao(tipo):
     ultima_operacao = ''
     if tipo == 'soma':
         ultima_operacao += 'soma'
-        conta_realizada += num + ' + '
+        conta_realizada += f'{resultado} + '
     elif tipo == 'subtrai':
         ultima_operacao += 'subtrai'
-        conta_realizada += num + ' - '
+        conta_realizada += f'{resultado} - '
     elif tipo == 'multiplica':
         ultima_operacao += 'multiplica'
-        conta_realizada += num + ' * '
+        conta_realizada += f'{resultado} * '
     elif tipo == 'divide':
         ultima_operacao += 'divide'
-        conta_realizada += num + ' / '
+        conta_realizada += f'{resultado} / '
 
     calculadora.Memoria.clear()
     calculadora.Memoria.addItem(conta_realizada)
+    conta_realizada = ''
 
     num = ''
     print(f'Resultado parcial: {resultado} {ultima_operacao}')
@@ -277,18 +278,30 @@ def inverte_numero():
     """
     global num, fim_calculo, resultado, conta_realizada
 
-    if fim_calculo:
+    if fim_calculo or ultima_operacao == '':
         limpar_dados(False)
+        print(f'Resultado {resultado}')
         num = str(resultado)
-        conta_realizada = num
         calculadora.Memoria.clear()
-        calculadora.Memoria.addItem(conta_realizada)
 
     try:
         aux = 1 / float(num)
         num = str(aux)
-    except:
-        num = '0'
+        if fim_calculo or ultima_operacao == '':
+            resultado = float(num)
+    except ZeroDivisionError:
+        num = ''
+        calculadora.DisplayLCD.display(0)
+        return
+    except TypeError:
+        num = ''
+        calculadora.DisplayLCD.display(0)
+        return
+    except ValueError:
+        num = ''
+        calculadora.DisplayLCD.display(0)
+        return
+
     calculadora.DisplayLCD.display(float(num))
     print(f'Fração: {num}')
 
