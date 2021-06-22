@@ -1,11 +1,12 @@
 from PyQt5 import uic, QtWidgets
 
 # Variáveis Globais
-num = ''
-resultado = ''
-ultima_operacao = ''
-conta_realizada = ''
-fim_calculo = False
+num = ''                  # Essa variável armazena o número que foi digitado pelo usuário
+resultado = ''            # Essa variável armazena o resultado da operação escolhida pelo usuário
+ultima_operacao = ' '     # Essa variável contém a última operação a ser realizada antes do resultado fnal
+conta_realizada = ''      # Essa variável contém a operação que será exibida no display
+fim_calculo = False       # Essa flag indica se o cálculo chegou ao fim (botão de igual foi apertado) ou não
+historico = ''            # Essa variável contém o memorial de cálculo do programa
 
 
 def apaga_numero():
@@ -25,13 +26,14 @@ def limpar_dados(flag_zera_resultado):
                                 Se falso o valor da variável 'resultado' será mantido
     :return: Nenhum
     """
-    global num, resultado, ultima_operacao, conta_realizada, fim_calculo
+    global num, resultado, ultima_operacao, conta_realizada, fim_calculo, historico
     print(f'Limpando dados: {flag_zera_resultado}')
     num = ''
     if flag_zera_resultado:
         resultado = ''
     ultima_operacao = ''
     conta_realizada = ''
+    historico = ''
     fim_calculo = False
     calculadora.Memoria.clear()
     calculadora.Memoria.addItem(conta_realizada)
@@ -150,7 +152,7 @@ def operacao(tipo):
     :param tipo: Tipo de operação que será realizada
     :return: Nenhum
     """
-    global num, ultima_operacao, resultado, conta_realizada, fim_calculo
+    global num, ultima_operacao, resultado, conta_realizada, fim_calculo, historico
 
     if num == '' and resultado == '':
         return
@@ -159,6 +161,8 @@ def operacao(tipo):
         limpar_dados(False)
         num = str(resultado)
         resultado = ''
+
+    historico += num
 
     if resultado == '' or resultado == 'ERRO':
         resultado = float(num)
@@ -181,22 +185,26 @@ def operacao(tipo):
     if tipo == 'soma':
         ultima_operacao += 'soma'
         conta_realizada += f'{resultado} + '
+        historico += ' + '
     elif tipo == 'subtrai':
         ultima_operacao += 'subtrai'
         conta_realizada += f'{resultado} - '
+        historico += ' - '
     elif tipo == 'multiplica':
         ultima_operacao += 'multiplica'
         conta_realizada += f'{resultado} * '
+        historico += ' * '
     elif tipo == 'divide':
         ultima_operacao += 'divide'
         conta_realizada += f'{resultado} / '
+        historico += ' / '
 
     calculadora.Memoria.clear()
     calculadora.Memoria.addItem(conta_realizada)
     conta_realizada = ''
 
     num = ''
-    print(f'Resultado parcial: {resultado} {ultima_operacao}')
+    print(f'Resultado parcial: {resultado}')
 
 
 def soma():
@@ -236,7 +244,7 @@ def calcula():
     Calcula o resultado da operação e atualiza o display e a memória coma resposta
     :return: Nenhum
     """
-    global ultima_operacao, conta_realizada, fim_calculo
+    global ultima_operacao, conta_realizada, fim_calculo, historico
 
     if num == '':
         return
@@ -244,8 +252,11 @@ def calcula():
     operacao(ultima_operacao)
     fim_calculo = True
     calculadora.Memoria.clear()
-    conta_realizada = conta_realizada[:-2] + conta_realizada[(-2 + 1):]
+    # conta_realizada = conta_realizada[:-2] + conta_realizada[(-2 + 1):]
     conta_realizada += f'= {resultado}'
+    historico = historico[:-2] + historico[(-2 + 1):]
+    historico += f'= {round(resultado, 4)}'
+    print(f'Conta realizada: {historico}')
     calculadora.Memoria.addItem(conta_realizada)
     calculadora.DisplayLCD.display(resultado)
 

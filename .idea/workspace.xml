@@ -3,114 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4d29c693-464c-493c-8545-e3696fd4cdf7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/calculadora/Analysis-00.toc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/calculadora/COLLECT-00.toc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/calculadora/EXE-00.toc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/calculadora/PKG-00.pkg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/calculadora/PKG-00.toc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/calculadora/PYZ-00.pyz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/calculadora/PYZ-00.toc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/calculadora/Tree-00.toc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/calculadora/Tree-01.toc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/calculadora/Tree-02.toc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/calculadora/base_library.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/calculadora/calculadora.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/calculadora/calculadora.exe.manifest" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/calculadora/warn-calculadora.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/calculadora/xref-calculadora.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/calculadora.py" beforeDir="false" afterPath="$PROJECT_DIR$/calculadora.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/calculadora.spec" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/MSVCP140.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/MSVCP140_1.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/plugins/iconengines/qsvgicon.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/plugins/imageformats/qgif.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/plugins/imageformats/qicns.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/plugins/imageformats/qico.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/plugins/imageformats/qjpeg.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/plugins/imageformats/qsvg.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/plugins/imageformats/qtga.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/plugins/imageformats/qtiff.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/plugins/imageformats/qwbmp.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/plugins/imageformats/qwebp.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/plugins/platforms/qminimal.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/plugins/platforms/qoffscreen.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/plugins/platforms/qwebgl.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/plugins/platforms/qwindows.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/plugins/platformthemes/qxdgdesktopportal.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/plugins/styles/qwindowsvistastyle.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/translations/qtbase_ar.qm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/translations/qtbase_bg.qm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/translations/qtbase_ca.qm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/translations/qtbase_cs.qm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/translations/qtbase_da.qm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/translations/qtbase_de.qm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/translations/qtbase_en.qm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/translations/qtbase_es.qm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/translations/qtbase_fi.qm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/translations/qtbase_fr.qm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/translations/qtbase_gd.qm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/translations/qtbase_he.qm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/translations/qtbase_hu.qm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/translations/qtbase_it.qm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/translations/qtbase_ja.qm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/translations/qtbase_ko.qm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/translations/qtbase_lv.qm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/translations/qtbase_pl.qm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/translations/qtbase_ru.qm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/translations/qtbase_sk.qm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/translations/qtbase_tr.qm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/translations/qtbase_uk.qm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/Qt/translations/qtbase_zh_TW.qm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/QtCore.pyd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/QtGui.pyd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/QtWidgets.pyd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/sip.cp38-win32.pyd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/uic/widget-plugins/qaxcontainer.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/uic/widget-plugins/qscintilla.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/uic/widget-plugins/qtcharts.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/uic/widget-plugins/qtprintsupport.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/uic/widget-plugins/qtquickwidgets.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/uic/widget-plugins/qtwebenginewidgets.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/PyQt5/uic/widget-plugins/qtwebkit.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/Qt5Core.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/Qt5DBus.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/Qt5Gui.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/Qt5Network.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/Qt5Qml.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/Qt5QmlModels.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/Qt5Quick.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/Qt5Svg.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/Qt5WebSockets.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/Qt5Widgets.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/VCRUNTIME140.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/_asyncio.pyd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/_bz2.pyd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/_ctypes.pyd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/_decimal.pyd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/_elementtree.pyd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/_hashlib.pyd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/_lzma.pyd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/_multiprocessing.pyd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/_overlapped.pyd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/_queue.pyd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/_socket.pyd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/_ssl.pyd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/base_library.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/calculadora.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/calculadora.exe.manifest" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/calculadora.ui" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/d3dcompiler_47.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/libEGL.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/libGLESv2.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/libcrypto-1_1.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/libffi-7.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/libssl-1_1.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/opengl32sw.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/pyexpat.pyd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/python3.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/python38.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/select.pyd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/calculadora/unicodedata.pyd" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,21 +61,21 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1579" height="222" key="GridCell.Tab.0.bottom" timestamp="1622922343000">
+    <state width="1579" height="222" key="GridCell.Tab.0.bottom" timestamp="1624398391614">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1579" height="222" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1622922343000" />
-    <state width="1579" height="222" key="GridCell.Tab.0.center" timestamp="1622922343000">
+    <state width="1579" height="222" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1624398391614" />
+    <state width="1579" height="222" key="GridCell.Tab.0.center" timestamp="1624398391613">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1579" height="222" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1622922343000" />
-    <state width="1579" height="222" key="GridCell.Tab.0.left" timestamp="1622922343000">
+    <state width="1579" height="222" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1624398391613" />
+    <state width="1579" height="222" key="GridCell.Tab.0.left" timestamp="1624398391613">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1579" height="222" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1622922343000" />
-    <state width="1579" height="222" key="GridCell.Tab.0.right" timestamp="1622922343000">
+    <state width="1579" height="222" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1624398391613" />
+    <state width="1579" height="222" key="GridCell.Tab.0.right" timestamp="1624398391613">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1579" height="222" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1622922343000" />
+    <state width="1579" height="222" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1624398391613" />
   </component>
 </project>
