@@ -1,44 +1,8 @@
 from PyQt5 import uic, QtWidgets
-
-# Variáveis Globais
-num = ''                  # Essa variável armazena o número que foi digitado pelo usuário
-resultado = ''            # Essa variável armazena o resultado da operação escolhida pelo usuário
-ultima_operacao = ' '     # Essa variável contém a última operação a ser realizada antes do resultado fnal
-conta_realizada = ''      # Essa variável contém a operação que será exibida no display
-fim_calculo = False       # Essa flag indica se o cálculo chegou ao fim (botão de igual foi apertado) ou não
-historico = ''            # Essa variável contém o memorial de cálculo do programa
-
-
-def apaga_numero():
-    """
-    Apaga a variável número e mostra no display o valor zero
-    :return: Nenhum
-    """
-    global num
-    num = ''
-    calculadora.DisplayLCD.display(0)
-
-
-def limpar_dados(flag_zera_resultado):
-    """
-    Apaga todas as variáveis do sistema, além de limpar o bloco de memória e mostrar no display o valor zero
-    :param flag_zera_resultado: Se verdadeira a variável 'resultado' será zerada
-                                Se falso o valor da variável 'resultado' será mantido
-    :return: Nenhum
-    """
-    global num, resultado, ultima_operacao, conta_realizada, fim_calculo, historico
-    print(f'Limpando dados: {flag_zera_resultado}')
-    num = ''
-    if flag_zera_resultado:
-        resultado = ''
-    ultima_operacao = ''
-    conta_realizada = ''
-    historico = ''
-    fim_calculo = False
-    calculadora.Memoria.clear()
-    calculadora.Memoria.addItem(conta_realizada)
-    calculadora.DisplayLCD.display(0)
-
+import math
+import digitos
+num = num1 = num2 = operacao = historico = memoria = ultimo_resultado = ''
+modo_calculadora = 'graus'
 
 def adiciona_digito(digito):
     """
@@ -47,12 +11,15 @@ def adiciona_digito(digito):
     :param digito: Dígito que será adicionado
     :return: Nenhum
     """
-    global num, fim_calculo
-    if fim_calculo:
-        limpar_dados(True)
+    global num
     num += digito
-    calculadora.DisplayLCD.display(float(num))
-    print(f'num: {num}')
+
+    if num == '00':
+        num = '0'
+        # todo: tratar zero a esquerda
+    else:
+        calculadora.DisplayLCD.display(float(num))
+        print(f'num: {num}')
 
 
 def adiciona_digito_zero():
@@ -135,76 +102,118 @@ def adiciona_digito_nove():
     adiciona_digito('9')
 
 
+def adiciona_pi():
+    """
+    Adiciona o valor de Pi a variável 'num'
+    :return: Nenhum
+    """
+    global num
+    num = ''
+    adiciona_digito(str(round(math.pi, 8)))
+
+
 def adiciona_virgula():
     """
     Adiciona a vírgula a variável 'num'
     :return: Nenhum
     """
     global num
+    if '.' in num:
+        return
     if num == '':
         num = '0'
     adiciona_digito('.')
 
 
-def operacao(tipo):
+def preenche_memoria(numero, operacao):
     """
-    Realiza a operação informada
+    Preenche o número e a operação a ser realizada no campo de memória
+    :param numero: Número a ser inserido
+    :param operacao: Operação a ser inserida
+    :return: Nenhum
+    """
+    global memoria
+    memoria += str(numero)
+
+    if operacao == 'soma':
+        memoria += ' + '
+    elif operacao == 'subtrai':
+        memoria += ' - '
+    elif operacao == 'multiplica':
+        memoria += ' * '
+    elif operacao == 'divide':
+        memoria += ' / '
+    elif operacao == 'potencia':
+        memoria += ' ^ '
+
+    calculadora.Memoria.clear()
+    calculadora.Memoria.addItem(memoria)
+    memoria = ''
+
+
+def calcula(tipo):
+    """
+    Calcular a operação a ser realizada
     :param tipo: Tipo de operação que será realizada
     :return: Nenhum
     """
-    global num, ultima_operacao, resultado, conta_realizada, fim_calculo, historico
+    global num, num1, num2, operacao, historico, ultimo_resultado
 
-    if num == '' and resultado == '':
+    if num == '':
+        if ultimo_resultado != '':
+            num1 = ultimo_resultado
+            preenche_memoria(num1, tipo)
+        else:
+            preenche_memoria(num1, '')
+        operacao = tipo
         return
 
-    if fim_calculo:
-        limpar_dados(False)
-        num = str(resultado)
-        resultado = ''
+    if num1 == '':
+        ultimo_resultado = num1 = float(num) if float(num) % 1 != 0 else int(float(num))
+        preenche_memoria(num1, tipo)
+        historico = num
+        num = ''
+        operacao = tipo
+        return
 
-    historico += num
+    num2 = float(num) if float(num) % 1 != 0 else int(float(num))
+    if operacao == 'soma':
+        historico += f' + {num2}'
+        num1 = (num1 + num2) if (num1 + num2) % 1 != 0 else int(num1 + num2)
+    elif operacao == 'subtrai':
+        historico += f' - {num2}'
+        num1 = (num1 - num2) if (num1 - num2) % 1 != 0 else int(num1 - num2)
+    elif operacao == 'multiplica':
+        historico += f' * {num2}'
+        num1 = (num1 * num2) if (num1 * num2) % 1 != 0 else int(num1 * num2)
+    elif operacao == 'divide':
+        try:
+            historico += f' / {num2}'
+            num1 = (num1 / num2) if (num1 / num2) % 1 != 0 else int(num1 / num2)
+        except ZeroDivisionError:
+            num = num1 = num2 = operacao = historico = ultimo_resultado = ''
+            preenche_memoria(num, '')
+            print('Divisão por zero')
+            calculadora.DisplayLCD.display('ERRO')
+            return
+    elif operacao == 'potencia':
+        historico += f' ^ {num2}'
+        num1 = num1 ** num2
 
-    if resultado == '' or resultado == 'ERRO':
-        resultado = float(num)
+    preenche_memoria(num1, tipo)
+
+    if tipo == 'calcula':
+        historico += f' = {num1}'
+        with open('historico.txt', 'a', encoding='utf8') as arquivo:
+            arquivo.writelines(historico + '\n')
+        historico = str(num1)
+        ultimo_resultado = num1
+        calculadora.DisplayLCD.display(num1)
+        operacao = num1 = num2 = num = ''
     else:
-        if ultima_operacao == 'soma':
-            resultado += float(num)
-        elif ultima_operacao == 'subtrai':
-            resultado -= float(num)
-        elif ultima_operacao == 'multiplica':
-            resultado *= float(num)
-        elif ultima_operacao == 'divide':
-            try:
-                resultado = resultado / float(num)
-            except ZeroDivisionError:
-                resultado = 'ERRO'
-                num = ''
-                print('Divisão por zero')
-
-    ultima_operacao = ''
-    if tipo == 'soma':
-        ultima_operacao += 'soma'
-        conta_realizada += f'{resultado} + '
-        historico += ' + '
-    elif tipo == 'subtrai':
-        ultima_operacao += 'subtrai'
-        conta_realizada += f'{resultado} - '
-        historico += ' - '
-    elif tipo == 'multiplica':
-        ultima_operacao += 'multiplica'
-        conta_realizada += f'{resultado} * '
-        historico += ' * '
-    elif tipo == 'divide':
-        ultima_operacao += 'divide'
-        conta_realizada += f'{resultado} / '
-        historico += ' / '
-
-    calculadora.Memoria.clear()
-    calculadora.Memoria.addItem(conta_realizada)
-    conta_realizada = ''
-
-    num = ''
-    print(f'Resultado parcial: {resultado}')
+        operacao = tipo
+        num2 = num = ''
+        calculadora.DisplayLCD.display(num1)
 
 
 def soma():
@@ -212,7 +221,7 @@ def soma():
     Seleciona a operação de soma
     :return: Nenhum
     """
-    operacao('soma')
+    calcula('soma')
 
 
 def subtrai():
@@ -220,7 +229,7 @@ def subtrai():
     Seleciona a operação de subtração
     :return: Nenhum
     """
-    operacao('subtrai')
+    calcula('subtrai')
 
 
 def divide():
@@ -228,7 +237,7 @@ def divide():
     Seleciona a operação de divisão
     :return: Nenhum
     """
-    operacao('divide')
+    calcula('divide')
 
 
 def multiplica():
@@ -236,29 +245,115 @@ def multiplica():
     Seleciona a operação de multiplicação
     :return: Nenhum
     """
-    operacao('multiplica')
+    calcula('multiplica')
 
 
-def calcula():
+def potenciacao():
     """
-    Calcula o resultado da operação e atualiza o display e a memória coma resposta
+    Seleciona a operação de exponenciacao
     :return: Nenhum
     """
-    global ultima_operacao, conta_realizada, fim_calculo, historico
+    calcula('potencia')
+
+
+def calcula_resultado():
+    """
+    Seleciona a operação de multiplicação
+    :return: Nenhum
+    """
+    calcula('calcula')
+
+
+def funcao_trigonometrica(funcao):
+    global modo_calculadora, num, ultimo_resultado
 
     if num == '':
-        return
+        if ultimo_resultado != '':
+            num = str(ultimo_resultado)
+        else:
+            return
 
-    operacao(ultima_operacao)
-    fim_calculo = True
-    calculadora.Memoria.clear()
-    # conta_realizada = conta_realizada[:-2] + conta_realizada[(-2 + 1):]
-    conta_realizada += f'= {resultado}'
-    historico = historico[:-2] + historico[(-2 + 1):]
-    historico += f'= {round(resultado, 4)}'
-    print(f'Conta realizada: {historico}')
-    calculadora.Memoria.addItem(conta_realizada)
-    calculadora.DisplayLCD.display(resultado)
+    if modo_calculadora == 'radianos':
+        num = str(funcao(float(num)))
+    elif modo_calculadora == 'graus':
+        num = str(funcao(math.radians(float(num))))
+    calculadora.DisplayLCD.display(float(num))
+
+
+def seno():
+    funcao_trigonometrica(math.sin)
+
+
+def cosseno():
+    funcao_trigonometrica(math.cos)
+
+
+def tangente():
+    # todo: Tratar a tangente de 90 graus ou (90*pi)/180 radianos
+    funcao_trigonometrica(math.tan)
+
+
+def inverte_sinal():
+    """
+    Inverter o sinal da variável 'num'
+    :return: Nenhum
+    """
+    global num, ultimo_resultado
+
+    lista_num = list(num)
+    if len(num) > 0 and num[0] != '-':
+        lista_num.insert(0, '-')
+        num = ''
+        lista_num = ''.join(lista_num)
+        adiciona_digito(lista_num)
+    elif len(num) > 0 and num[0] == '-':
+        lista_num.pop(0)
+        num = ''
+        lista_num = ''.join(lista_num)
+        adiciona_digito(lista_num)
+    else:
+        if num == '':
+            if ultimo_resultado != '':
+                num = str(-1 * float(ultimo_resultado) if float(ultimo_resultado) % 1 != 0
+                          else -1 * int(ultimo_resultado))
+                calculadora.DisplayLCD.display(float(num))
+                print(f'f{num}')
+            else:
+                num = ''
+                adiciona_digito('-0')
+
+
+def inverte_numero():
+    """
+    Inverte o número (num = 1/num)
+    :return: Nenhum
+    """
+    global num, num1, num2, operacao, historico, ultimo_resultado
+
+    if num == '':
+        if ultimo_resultado != '':
+            num = ultimo_resultado
+        else:
+            return
+    try:
+        num = str(1 / float(num))
+        calculadora.DisplayLCD.display(float(num))
+    except ValueError:
+        try:
+            num1 = 1 / num1
+            num = str(num1)
+            calculadora.DisplayLCD.display(float(num))
+        except ZeroDivisionError:
+            num = num1 = num2 = operacao = historico = ''
+            preenche_memoria(num, '')
+            print('Divisão por zero')
+            calculadora.DisplayLCD.display('ERRO')
+    except ZeroDivisionError:
+        num = num1 = num2 = operacao = historico = ultimo_resultado = ''
+        preenche_memoria(num, '')
+        print('Divisão por zero')
+        calculadora.DisplayLCD.display('ERRO')
+        return
 
 
 def apaga_digito():
@@ -267,54 +362,88 @@ def apaga_digito():
     um zero pós a vírgula
     :return: Nenhum
     """
-    global num
-    while True:
-        if len(num) > 1:
-            if num[-1:-2:-1] == '.' or (num[-1:-2:-1] == '0' and '.' in num):
-                num = num[:-1]
-            else:
-                num = num[:-1]
-                calculadora.DisplayLCD.display(float(num))
-                break
+    global num, num1, ultimo_resultado
+
+    if num == '':
+        if ultimo_resultado != '':
+            num = str(float(ultimo_resultado) if float(ultimo_resultado) % 1 != 0 else int(float(ultimo_resultado)))
+            print(f'f{num}')
         else:
-            num = ''
-            calculadora.DisplayLCD.display(0)
-            break
+            return
 
-
-def inverte_numero():
-    """
-    Inverte o número (num = 1/num)
-    :return: Nenhum
-    """
-    global num, fim_calculo, resultado, conta_realizada
-
-    if fim_calculo or ultima_operacao == '':
-        limpar_dados(False)
-        print(f'Resultado {resultado}')
-        num = str(resultado)
-        calculadora.Memoria.clear()
-
-    try:
-        aux = 1 / float(num)
-        num = str(aux)
-        if fim_calculo or ultima_operacao == '':
-            resultado = float(num)
-    except ZeroDivisionError:
-        num = ''
-        calculadora.DisplayLCD.display(0)
-        return
-    except TypeError:
-        num = ''
-        calculadora.DisplayLCD.display(0)
-        return
-    except ValueError:
-        num = ''
-        calculadora.DisplayLCD.display(0)
-        return
+    lista_num = list(num)
+    if len(num) == 1:
+        num = '0'
+    elif len(num) > 0:
+        lista_num.pop(len(lista_num) - 1)
+        print(lista_num)
+        num = ''.join(lista_num)
 
     calculadora.DisplayLCD.display(float(num))
-    print(f'Fração: {num}')
+
+
+def apaga_numero():
+    """
+    Apaga a variável número e mostra no display o valor zero
+    :return: Nenhum
+    """
+    global num
+    num = ''
+    calculadora.DisplayLCD.display(0)
+
+
+def apaga_tudo():
+    """
+    Apaga/Zera todas as variáveis usadas
+    :return: Nenhum
+    """
+    global num, num1, num2, operacao, historico, memoria, ultimo_resultado
+    num = num1 = num2 = operacao = historico = memoria = ultimo_resultado = ''
+    calculadora.Memoria.clear()
+    calculadora.DisplayLCD.display(0)
+
+
+def logaritmo():
+    """
+    Calcula o logaritmo do numero informado
+    :return: Nenhum
+    """
+    global num, historico, ultimo_resultado, num1, num2, operacao
+
+    if num == '':
+        if ultimo_resultado != '':
+            num = str(ultimo_resultado)
+        else:
+            return
+
+    try:
+        num = str(math.log10(float(num)))
+        calculadora.DisplayLCD.display(float(num))
+    except ValueError:
+        print('Erro ao calcular Logaritmo')
+        num = num1 = num2 = operacao = historico = ultimo_resultado = ''
+        preenche_memoria(num, '')
+        calculadora.DisplayLCD.display('ERRO')
+
+
+def mostra_tela_versao():
+    versao.show()
+
+
+def mostra_tela_configurar():
+    configurar.show()
+
+
+def verificar_modo_calculadora():
+    # todo: Tratar o evento no botão 'Fechar' da janela 'Configurar'
+    global modo_calculadora
+    if configurar.Graus.isChecked():
+        modo_calculadora = 'graus'
+        calculadora.Modo_Calculadora.setText('G')
+    elif configurar.Radianos.isChecked():
+        modo_calculadora = 'radianos'
+        calculadora.Modo_Calculadora.setText('R')
+    configurar.close()
 
 
 # Main
@@ -322,6 +451,8 @@ def inverte_numero():
 app = QtWidgets.QApplication([])
 # Carrega o layout da tela
 calculadora = uic.loadUi("calculadora.ui")
+versao = uic.loadUi("versao.ui")
+configurar = uic.loadUi("configurar.ui")
 calculadora.Digito0.clicked.connect(adiciona_digito_zero)
 calculadora.Digito1.clicked.connect(adiciona_digito_um)
 calculadora.Digito2.clicked.connect(adiciona_digito_dois)
@@ -332,15 +463,25 @@ calculadora.Digito6.clicked.connect(adiciona_digito_seis)
 calculadora.Digito7.clicked.connect(adiciona_digito_sete)
 calculadora.Digito8.clicked.connect(adiciona_digito_oito)
 calculadora.Digito9.clicked.connect(adiciona_digito_nove)
+calculadora.Pi.clicked.connect(adiciona_pi)
 calculadora.Virgula.clicked.connect(adiciona_virgula)
 calculadora.Somar.clicked.connect(soma)
 calculadora.Subtrair.clicked.connect(subtrai)
 calculadora.Dividir.clicked.connect(divide)
 calculadora.Multiplicar.clicked.connect(multiplica)
-calculadora.Calcular.clicked.connect(calcula)
-calculadora.Apaga_Digito.clicked.connect(apaga_digito)
-calculadora.Apagar_Tudo.clicked.connect(limpar_dados)
-calculadora.Apagar_Numero.clicked.connect(apaga_numero)
+calculadora.Calcular.clicked.connect(calcula_resultado)
+calculadora.Inverter_sinal.clicked.connect(inverte_sinal)
 calculadora.Fracao.clicked.connect(inverte_numero)
+calculadora.Apaga_Digito.clicked.connect(apaga_digito)
+calculadora.Apagar_Numero.clicked.connect(apaga_numero)
+calculadora.Apagar_Tudo.clicked.connect(apaga_tudo)
+calculadora.Logaritmo.clicked.connect(logaritmo)
+calculadora.Elevado.clicked.connect(potenciacao)
+calculadora.Seno.clicked.connect(seno)
+calculadora.Cosseno.clicked.connect(cosseno)
+calculadora.Tangente.clicked.connect(tangente)
+calculadora.Versao.triggered.connect(mostra_tela_versao)
+calculadora.Configurar.triggered.connect(mostra_tela_configurar)
+configurar.Confirmar.clicked.connect(verificar_modo_calculadora)
 calculadora.show()
 app.exec()
