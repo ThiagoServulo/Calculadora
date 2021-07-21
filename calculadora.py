@@ -1,8 +1,8 @@
 from PyQt5 import uic, QtWidgets
 import math
-import digitos
 num = num1 = num2 = operacao = historico = memoria = ultimo_resultado = ''
 modo_calculadora = 'graus'
+
 
 def adiciona_digito(digito):
     """
@@ -16,7 +16,6 @@ def adiciona_digito(digito):
 
     if num == '00':
         num = '0'
-        # todo: tratar zero a esquerda
     else:
         calculadora.DisplayLCD.display(float(num))
         print(f'num: {num}')
@@ -204,8 +203,11 @@ def calcula(tipo):
 
     if tipo == 'calcula':
         historico += f' = {num1}'
-        with open('historico.txt', 'a', encoding='utf8') as arquivo:
-            arquivo.writelines(historico + '\n')
+        try:
+            with open('.\\historico.txt', 'a', encoding='utf8') as arquivo:
+                arquivo.writelines(historico + '\n')
+        except:
+            pass
         historico = str(num1)
         ultimo_resultado = num1
         calculadora.DisplayLCD.display(num1)
@@ -265,6 +267,11 @@ def calcula_resultado():
 
 
 def funcao_trigonometrica(funcao):
+    """
+    Realiza uma operação trigonométrica desejada
+    :param funcao: Operação a ser realizada (seno, cosseno ou tangente)
+    :return: Nenhum
+    """
     global modo_calculadora, num, ultimo_resultado
 
     if num == '':
@@ -281,15 +288,26 @@ def funcao_trigonometrica(funcao):
 
 
 def seno():
+    """
+    Calcula o seno de um ângulo
+    :return: Nenhum
+    """
     funcao_trigonometrica(math.sin)
 
 
 def cosseno():
+    """
+    Calcula o cosseno de um ângulo
+    :return: Nenhum
+    """
     funcao_trigonometrica(math.cos)
 
 
 def tangente():
-    # todo: Tratar a tangente de 90 graus ou (90*pi)/180 radianos
+    """
+    Calcula a tangente de um ângulo
+    :return: Nenhum
+    """
     funcao_trigonometrica(math.tan)
 
 
@@ -405,7 +423,7 @@ def apaga_tudo():
 
 def logaritmo():
     """
-    Calcula o logaritmo do numero informado
+    Calcula o logaritmo do número informado
     :return: Nenhum
     """
     global num, historico, ultimo_resultado, num1, num2, operacao
@@ -427,15 +445,26 @@ def logaritmo():
 
 
 def mostra_tela_versao():
+    """
+    Mostra a tela 'Versão'
+    :return: Nenhum
+    """
     versao.show()
 
 
 def mostra_tela_configurar():
+    """
+    Mostra a tela 'Configurar'
+    :return: Nenhum
+    """
     configurar.show()
 
 
 def verificar_modo_calculadora():
-    # todo: Tratar o evento no botão 'Fechar' da janela 'Configurar'
+    """
+    Define se a calculadora irá considerar os ângulos em Graus ou Radianos
+    :return: Nenhum
+    """
     global modo_calculadora
     if configurar.Graus.isChecked():
         modo_calculadora = 'graus'
@@ -444,6 +473,18 @@ def verificar_modo_calculadora():
         modo_calculadora = 'radianos'
         calculadora.Modo_Calculadora.setText('R')
     configurar.close()
+
+
+def apaga_historico():
+    """
+    Apaga o conteúdo do arquivo 'historico.txt'
+    :return: Nenhum
+    """
+    try:
+        with open('.\\historico.txt', 'w', encoding='utf8') as arquivo:
+            arquivo.write('')
+    except:
+        pass
 
 
 # Main
@@ -481,6 +522,7 @@ calculadora.Seno.clicked.connect(seno)
 calculadora.Cosseno.clicked.connect(cosseno)
 calculadora.Tangente.clicked.connect(tangente)
 calculadora.Versao.triggered.connect(mostra_tela_versao)
+calculadora.Apagar_Historico.triggered.connect(apaga_historico)
 calculadora.Configurar.triggered.connect(mostra_tela_configurar)
 configurar.Confirmar.clicked.connect(verificar_modo_calculadora)
 calculadora.show()

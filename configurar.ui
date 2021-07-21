@@ -18,6 +18,10 @@
   <property name="windowTitle">
    <string>Configurar</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>configurar_icon.jpg</normaloff>configurar_icon.jpg</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="label">
     <property name="geometry">

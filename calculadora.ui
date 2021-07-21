@@ -66,7 +66,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>download.jpg</normaloff>download.jpg</iconset>
+    <normaloff>calculadora_icon.jpg</normaloff>calculadora_icon.jpg</iconset>
   </property>
   <property name="animated">
    <bool>true</bool>
